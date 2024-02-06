@@ -1,0 +1,79 @@
+//===----------------------------------------------------------------------===//
+//
+//                         BusTub
+//
+// rid.h
+//
+// Identification: src/include/common/rid.h
+//
+// Copyright (c) 2015-2019, Carnegie Mellon University Database Group
+//
+//===----------------------------------------------------------------------===//
+
+#pragma once
+
+#include <cstdint>
+#include <sstream>
+#include <string>
+
+#include "common/config.h"
+
+namespace bustub {
+
+/**
+ * 通过 page_id 和 slot_num 标识数据库中的唯一记录， 不存储元组数据
+ */
+class RID {
+ public:
+  /** The default constructor creates an invalid RID! */
+  RID() = default;
+
+  /**
+   * Creates a new Record Identifier for the given page identifier and slot number.
+   * @param page_id page identifier
+   * @param slot_num slot number
+   */
+  RID(page_id_t page_id, uint32_t slot_num) : page_id_(page_id), slot_num_(slot_num) {}
+
+  explicit RID(int64_t rid) : page_id_(static_cast<page_id_t>(rid >> 32)), slot_num_(static_cast<uint32_t>(rid)) {}
+
+  inline auto Get() const -> int64_t { return (static_cast<int64_t>(page_id_)) << 32 | slot_num_; }
+
+  inline auto GetPageId() const -> page_id_t { return page_id_; }
+
+  inline auto GetSlotNum() const -> uint32_t { return slot_num_; }
+
+  inline void Set(page_id_t page_id, uint32_t slot_num) {
+    page_id_ = page_id;
+    slot_num_ = slot_num;
+  }
+
+  inline auto ToString() const -> std::string {
+    std::stringstream os;
+    os << "page_id: " << page_id_;
+    os << " slot_num: " << slot_num_ << "\n";
+
+    return os.str();
+  }
+
+  friend auto operator<<(std::ostream &os, const RID &rid) -> std::ostream & {
+    os << rid.ToString();
+    return os;
+  }
+
+  auto operator==(const RID &other) const -> bool { return page_id_ == other.page_id_ && slot_num_ == other.slot_num_; }
+
+ private:
+  page_id_t page_id_{INVALID_PAGE_ID};
+  /* 槽(slot)的编号, 槽是页面中用于存储记录的位置, 通过槽号可以唯一标识一个记录。 */
+  uint32_t slot_num_{0};  // logical offset from 0, 1...
+};
+
+}  // namespace bustub
+
+namespace std {
+template <>
+struct hash<bustub::RID> {
+  auto operator()(const bustub::RID &obj) const -> size_t { return hash<int64_t>()(obj.Get()); }
+};
+}  // namespace std
