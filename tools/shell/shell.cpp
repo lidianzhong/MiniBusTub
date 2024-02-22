@@ -40,7 +40,7 @@ auto main(int argc, char **argv) -> int {
   auto bustub = std::make_unique<bustub::BustubInstance>("test.db");
 
   // 定义了一些默认变量 默认提示符 emoji 提示符 是否使用表情提示符 是否禁用终端消息
-  auto default_prompt = "bustub> ";
+  auto default_prompt = "minibustub> ";
   auto emoji_prompt = "\U0001f6c1> ";  // the bathtub emoji
   bool use_emoji_prompt = false;
   bool disable_tty = false;
@@ -64,7 +64,7 @@ auto main(int argc, char **argv) -> int {
     bustub->GenerateTestTable();
   }
 
-  std::cout << "Welcome to the BusTub shell! Type \\help to learn more." << std::endl << std::endl;
+  std::cout << "Welcome to the MiniBusTub shell! Type \\help to learn more." << std::endl << std::endl;
 
   // 设置 linenoise 库的历史记录最大长度和多行模式
   linenoiseHistorySetMaxLen(1024);
@@ -119,10 +119,10 @@ auto main(int argc, char **argv) -> int {
       auto end_time = std::chrono::high_resolution_clock::now();
       // 计算执行的时间差
       auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time);
-      std::cout << "Execution time: " << duration.count() << " microseconds" << std::endl;
       for (const auto &table : writer.tables_) {
-        std::cout << table;
+          std::cout << table;
       }
+      std::cout << "Execution time: " << duration.count() << " microseconds" << std::endl;
     } catch (bustub::Exception &ex) {
       std::cerr << ex.what() << std::endl;
     }
