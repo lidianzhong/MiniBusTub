@@ -43,7 +43,7 @@ void ExtendibleHTableDirectoryPage::IncrGlobalDepth() {
   // 填充分裂图中数据
   uint32_t origin_index = 0;
   uint32_t new_index = 1 << (global_depth_ - 1);
-  while (new_index < 1 << global_depth_) {
+  while (new_index < static_cast<uint32_t>(1 << global_depth_)) {
     bucket_page_ids_[new_index] = bucket_page_ids_[origin_index];
     local_depths_[new_index] = local_depths_[origin_index];
     new_index++;
