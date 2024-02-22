@@ -25,7 +25,7 @@ class Column {
    */
   Column(std::string column_name, TypeId type)
       : column_name_(std::move(column_name)), column_type_(type), fixed_length_(TypeSize(type)) {
-    // 不支持可变长类型的字符串
+    // 在创建varchar类型的列时，需要指定长度length参数，而不是使用该构造函数
     BUSTUB_ASSERT(type != TypeId::VARCHAR, "Wrong constructor for VARCHAR type.");
   }
 
@@ -40,6 +40,7 @@ class Column {
         column_type_(type),
         fixed_length_(TypeSize(type)),
         variable_length_(length) {
+    // 只有创建varchar类型的列才能使用该构造函数
     BUSTUB_ASSERT(type == TypeId::VARCHAR, "Wrong constructor for non-VARCHAR type.");
   }
 

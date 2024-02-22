@@ -18,7 +18,6 @@
 #include "common/bustub_instance.h"
 #include "common/exception.h"
 #include "common/util/string_util.h"
-#include "execution/check_options.h"
 #include "execution/execution_engine.h"
 #include "execution/executor_context.h"
 #include "execution/executors/mock_scan_executor.h"

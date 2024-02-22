@@ -70,10 +70,8 @@ auto AggregationExecutor::Next(Tuple *tuple, RID *rid) -> bool {
       return false;
     }
 
-    std::vector<Value> values;
-    values.insert(values.end(), aht_.GenerateInitialAggregateValue().aggregates_.begin(), aht_.GenerateInitialAggregateValue().aggregates_.end());
 
-    *tuple = {values, &GetOutputSchema()};
+    *tuple = {aht_.GenerateInitialAggregateValue().aggregates_, &GetOutputSchema()};
     *rid = RID{};
 
     is_empty_table_handle_ = true;

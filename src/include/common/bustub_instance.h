@@ -25,7 +25,6 @@
 #include "catalog/catalog.h"
 #include "common/config.h"
 #include "common/util/string_util.h"
-#include "execution/check_options.h"
 #include "libfort/lib/fort.hpp"
 #include "type/value.h"
 
@@ -230,7 +229,7 @@ class FortTableWriter : public ResultWriter {
 class BustubInstance {
  private:
   /**
-   * 生成 ExecutorContext 实例
+   * 生成 ExecutorContext 实例  // TODO(zhong): id_modify 的作用是什么？
    */
   auto MakeExecutorContext(bool is_modify) -> std::unique_ptr<ExecutorContext>;
 
