@@ -5,22 +5,27 @@ CMU 15-445数据库课程项目的简化版本
 ## 构建
 
 1. 安装 Ubuntu 22.04 系统
-2. 下载项目源代码
+2. 安装 git
     ```bash
-    git clone git@github.com:lidianzhong/MiniBusTub.git
+    sudo apt update
+    sudo apt install git
+    ```
+3. 下载项目源代码
+    ```bash
+    git clone https://github.com/lidianzhong/MiniBusTub.git
    ```
-3. 安装相关依赖
+4. 安装相关依赖
    ```bash
     sudo build_support/packages.sh
    ```
-4. 构建项目（在根目录执行命令）
+5. 构建项目（在根目录执行命令）
    ```bash
    mkdir build
    cd build
    cmake ..
    make
    ```
-5. 运行 shell（在根目录执行命令）
+6. 运行 shell（在根目录执行命令）
     ```bash
     cd build && make -j$(nproc) shell
     ./bin/bustub-shell

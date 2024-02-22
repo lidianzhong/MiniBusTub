@@ -6,7 +6,6 @@ add_subdirectory(container)
 add_subdirectory(execution)
 add_subdirectory(optimzer)
 add_subdirectory(planner)
-add_subdirectory(primer)
 add_subdirectory(storage)
 add_subdirectory(type)
 

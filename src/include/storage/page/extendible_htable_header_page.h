@@ -55,6 +55,13 @@ class ExtendibleHTableHeaderPage {
    */
   auto MaxSize() const -> uint32_t;
 
+    /**
+   * 打印标题的占用信息
+   *
+   * Prints the header's occupancy information
+   */
+  void PrintHeader() const;
+
  private:
   /** An array of directory page ids */
   page_id_t directory_page_ids_[HTABLE_HEADER_ARRAY_SIZE];
